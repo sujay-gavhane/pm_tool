@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   devise_scope :user do
     authenticated do
       root to: 'home#index'
+
+      resources :projects
     end
     unauthenticated do
       root to: 'devise/sessions#new'
