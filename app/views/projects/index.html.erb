@@ -1,23 +1,25 @@
-<h3>Projects Listing</h3>
-<div class="row">
-  <div class="col-md-12">
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Description</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @projects.each do |project| %>
-          <tr>
-            <td><%= project.title %></td>
-            <td><%= project.description %></td>
-            <td><%= link_to 'Edit', edit_project_path(project) %></td>
+<div class="m-3">
+  <h3>Projects Listing</h3>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr role='row'>
+            <th class='md-cell'>Title</th>
+            <th class='md-cell'>Description</th>
+            <th class='sm-cell'>Actions</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @projects.each do |project| %>
+            <tr role='row'>
+              <td class='md-cell'><%= project.title %></td>
+              <td class='md-cell'><%= project.description %></td>
+              <td class='sm-cell'><%= link_to 'Edit', edit_project_path(project) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

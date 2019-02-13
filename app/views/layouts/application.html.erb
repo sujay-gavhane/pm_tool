@@ -33,8 +33,12 @@
       <% end %>
       <div class="page-content-wrapper">
         <div class="page-content">
-          <p class="notice"><%= notice.html_safe if notice %></p>
-          <p class="alert"><%= alert.html_safe if alert %></p>
+          <% if notice %>
+            <div class="alert alert-success alert-dismissable" id="note_response"><%= notice.html_safe %></div>
+          <% end %>
+          <% if alert %>
+            <div class="alert alert-dabger alert-dismissable" id="note_response"><%= alert.html_safe %></div>
+          <% end %>
           <%= yield %>
         </div>
       </div>

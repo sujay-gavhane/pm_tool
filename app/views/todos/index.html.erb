@@ -1,23 +1,25 @@
-<h3>Todo Listing</h3>
-<div class="row">
-  <div class="col-md-12">
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Description</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @todos.each do |todo| %>
-          <tr>
-            <td><%= todo.title %></td>
-            <td><%= todo.description %></td>
-            <td><%= link_to 'Destroy', project_todo_path(id: todo, project_id: todo.project_id), method: 'delete' %> | <%= link_to 'Edit', edit_project_todo_path(id: todo, project_id: todo.project_id) %></td>
+<div class="m-3">
+  <h3>Todo Listing</h3>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr role='row'>
+            <th class='md-cell'>Title</th>
+            <th class='md-cell'>Description</th>
+            <th class='md-cell'>Actions</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @todos.each do |todo| %>
+            <tr role='row'>
+              <td class='md-cell'><%= todo.title %></td>
+              <td class='md-cell'><%= todo.description %></td>
+              <td class='md-cell'><%= link_to 'Destroy', project_todo_path(id: todo, project_id: todo.project_id), method: 'delete' %> | <%= link_to 'Edit', edit_project_todo_path(id: todo, project_id: todo.project_id) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
