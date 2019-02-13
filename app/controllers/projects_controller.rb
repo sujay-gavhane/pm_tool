@@ -1,6 +1,8 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_project, only: [:edit, :update]
+  before_action :authorize_user
+
   def index
     @projects = Project.all.order('created_at desc')
   end
@@ -36,5 +38,9 @@ class ProjectsController < ApplicationController
 
   def project_params
     params.require(:project).permit(:title, :description)
+  end
+
+  def authorize_user
+    authorize! :manage, :all
   end
 end

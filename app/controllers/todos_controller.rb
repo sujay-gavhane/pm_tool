@@ -1,7 +1,8 @@
 class TodosController < ApplicationController
   before_action :authenticate_user!
+  before_action :authorize_user
   before_action :find_todo, only: [:edit, :update, :destroy]
-  before_action :find_project, only: [:new, :index]
+  before_action :find_project, only: [:new, :index, :edit]
 
   def index
     @todos = @project.todos.order('created_at desc')
@@ -50,5 +51,9 @@ class TodosController < ApplicationController
 
   def todo_params
     params.require(:todo).permit(:title, :description, :project_id, :status)    
+  end
+
+  def authorize_user
+    authorize! :manage, :all
   end
 end

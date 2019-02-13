@@ -1,19 +1,26 @@
 <div class="row p-2 nav-bg-color">
-  <div class="col-md-2">
-    <%= link_to 'List Projects', projects_path %>
-  </div>
-  <div class="col-md-2">
-    <%= link_to 'Add Projects', new_project_path %>
-  </div>
-  <% if params[:controller] == 'projects' && params[:action] == 'edit' %>
+  <% if can?(:change_todo_status, :todos) %>
     <div class="col-md-2">
-      <%= link_to 'Todo List', project_todos_path(@project) %>
+      <%= link_to 'Todo List', '' %>
+    </div>
+  <% end %>
+  <% if can?(:manage, :all) %>
+    <div class="col-md-2">
+      <%= link_to 'List Projects', projects_path %>
     </div>
     <div class="col-md-2">
-      <%= link_to 'Add new Todo', new_project_todo_path(@project) %>
+      <%= link_to 'Add Projects', new_project_path %>
     </div>
-    <div class="col-md-2">
-      <%= link_to 'Assign Developer', ''%>
-    </div>
+    <% if (params[:controller] == 'projects' && params[:action] == 'edit') || (params[:controller] == 'todos') %>
+      <div class="col-md-2">
+        <%= link_to 'Todo List', project_todos_path(project_id: @project) %>
+      </div>
+      <div class="col-md-2">
+        <%= link_to 'Add new Todo', new_project_todo_path(project_id: @project) %>
+      </div>
+      <div class="col-md-2">
+        <%= link_to 'Assign Developer', ''%>
+      </div>
+    <% end %>
   <% end %>
 </div>
