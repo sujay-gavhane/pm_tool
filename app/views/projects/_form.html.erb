@@ -28,13 +28,14 @@
       <div class="form-actions">
         <div class="row">
           <div class="col-md-6"></div>
-          <div class="col-md-6">
+          <div class="col-md-4">
             <% if @project.new_record? %>
               <%= f.submit 'Create', class: "btn blue primary pull-right" %>
             <% else %>
               <%= f.submit 'Update', class: "btn blue primary pull-right" %>
             <% end %>
           </div>
+          <div class="col-md-2"></div>
         </div>
       </div>
     <%end%>

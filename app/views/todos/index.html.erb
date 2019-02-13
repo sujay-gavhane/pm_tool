@@ -1,0 +1,23 @@
+<h3>Todo Listing</h3>
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @todos.each do |todo| %>
+          <tr>
+            <td><%= todo.title %></td>
+            <td><%= todo.description %></td>
+            <td><%= link_to 'Destroy', project_todo_path(id: todo, project_id: todo.project_id), method: 'delete' %> | <%= link_to 'Edit', edit_project_todo_path(id: todo, project_id: todo.project_id) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

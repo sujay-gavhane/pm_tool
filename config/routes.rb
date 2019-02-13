@@ -5,7 +5,10 @@ Rails.application.routes.draw do
     authenticated do
       root to: 'home#index'
 
-      resources :projects
+      resources :projects do
+        resources :todos
+      end
+
     end
     unauthenticated do
       root to: 'devise/sessions#new'
