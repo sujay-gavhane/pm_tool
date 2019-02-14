@@ -15,4 +15,5 @@
 //= require popper
 //= require bootstrap
 //= require activestorage
+//= require jquery.sumoselect.min.js
 //= require_tree .
