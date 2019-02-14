@@ -21,8 +21,13 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def edit
+    gon.selected_developers = @project.users.pluck(:user_id)
+  end
+
   def update
     if @project.update_attributes(project_params)
+      AssignedProject.create_assigned_projects(@project.id, params[:project][:developer_ids])
       redirect_to projects_path, notice: 'Project updated successfully'
     else
       flash[:alert] =  "#{@project.errors.full_messages.join('<br>')}"
@@ -37,7 +42,7 @@ class ProjectsController < ApplicationController
   end
 
   def project_params
-    params.require(:project).permit(:title, :description)
+    params.require(:project).permit(:title, :description, :developer_ids)
   end
 
   def authorize_user
