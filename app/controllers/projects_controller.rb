@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_project, only: [:edit, :update]
+  before_action :find_developers, only: [:new, :edit]
   before_action :authorize_user
 
   def index
@@ -21,8 +22,13 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def edit
+    @selected_developers = 
+  end
+
   def update
     if @project.update_attributes(project_params)
+      AssignedProject.create_assigned_projects(@project.id, params[:project][:developer_ids])
       redirect_to projects_path, notice: 'Project updated successfully'
     else
       flash[:alert] =  "#{@project.errors.full_messages.join('<br>')}"
@@ -37,10 +43,14 @@ class ProjectsController < ApplicationController
   end
 
   def project_params
-    params.require(:project).permit(:title, :description)
+    params.require(:project).permit(:title, :description, :developer_ids)
   end
 
   def authorize_user
     authorize! :manage, :all
+  end
+
+  def find_developers
+    @developers = User.with_role(:developer).select([:id, :first_name, :last_name])
   end
 end

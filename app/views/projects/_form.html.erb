@@ -24,6 +24,18 @@
             </div>
           </div>
         </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="control-label col-md-9">Select Developers
+                <span class="required" aria-required="true">* </span>
+              </label>
+              <div class="col-md-9">
+                <%= select_tag "project[developer_ids]", options_from_collection_for_select(@developers, 'id', 'first_name'), class: "form-control developer_ids", multiple: true %>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="form-actions">
         <div class="row">
