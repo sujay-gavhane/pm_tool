@@ -9,6 +9,7 @@ Rails.application.routes.draw do
         resources :todos
       end
 
+      match '/fetch_developers', to: 'users#fetch_developers', via: [:get]
     end
     unauthenticated do
       root to: 'devise/sessions#new'

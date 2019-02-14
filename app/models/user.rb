@@ -5,7 +5,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-	has_many :projects, through: :users_projects
+	has_many :projects, through: :assigned_projects
+  has_many :todos
 
 	after_create :assign_default_role
 
