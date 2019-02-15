@@ -5,9 +5,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-	has_many :projects, through: :assigned_projects
+  has_many :projects, through: :assigned_projects
+  has_many :todos
 
-	after_create :assign_default_role
+  after_create :assign_default_role
 
   def full_name
     self.first_name.to_s + " " + self.last_name.to_s

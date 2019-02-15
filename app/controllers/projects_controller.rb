@@ -23,7 +23,7 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    @selected_developers = 
+    gon.selected_developers = @project.users.pluck(:user_id)
   end
 
   def update

@@ -2,7 +2,7 @@ class TodosController < ApplicationController
   before_action :authenticate_user!
   before_action :authorize_user
   before_action :find_todo, only: [:edit, :update, :destroy]
-  before_action :find_project, only: [:new, :index, :edit]
+  before_action :find_project, only: [:new, :index, :edit, :update, :create]
 
   def index
     @todos = @project.todos.order('created_at desc')
@@ -14,12 +14,17 @@ class TodosController < ApplicationController
 
   def create
     @todo = Todo.new(todo_params)
+    debugger
     if @todo.save
       redirect_to project_todos_path, notice: 'Todo created successfully'
     else
       flash[:alert] =  "#{@todo.errors.full_messages.join('<br>')}"
       render action: :new
     end
+  end
+
+  def edit
+    gon.selected_developer = [@todo.developer_id]
   end
 
   def update
@@ -50,7 +55,7 @@ class TodosController < ApplicationController
   end
 
   def todo_params
-    params.require(:todo).permit(:title, :description, :project_id, :status)    
+    params.require(:todo).permit(:title, :description, :project_id, :status, :developer_id)    
   end
 
   def authorize_user
