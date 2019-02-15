@@ -4,4 +4,6 @@ class Todo < ApplicationRecord
 
   validates :title, presence: true, uniqueness: true
   validates :project_id, presence: true
+
+  enum status: [:ready, :in_progress, :done]
 end

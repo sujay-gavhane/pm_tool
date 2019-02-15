@@ -1,3 +1,13 @@
+<div class="row m-3">
+  <div class="pull-right">
+    <%= link_to 'Todo List', project_todos_path(project_id: @project), class: 'btn btn-primary mr-3' %>
+  </div>
+  <% unless params[:action] == 'edit' %>
+    <div class="pull-right">
+      <%= link_to 'Add new Todo', new_project_todo_path(project_id: @project), class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>
 <div class="m-3">
   <h3>Todo Listing</h3>
   <div class="row">
