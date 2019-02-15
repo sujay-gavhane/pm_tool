@@ -1,6 +1,7 @@
 class TodosController < ApplicationController
   before_action :authenticate_user!
-  before_action :authorize_user
+  before_action :authorize_user, except: [:developer_todo_list]
+  before_action :authorize_developer, only: [:developer_todo_list]
   before_action :find_todo, only: [:edit, :update, :destroy]
   before_action :find_project, only: [:new, :index, :edit, :update, :create]
 
@@ -52,6 +53,12 @@ class TodosController < ApplicationController
     @todos = Todo.includes(:user).all.group_by(&:project_id)
   end
 
+  def developer_todo_list
+    @todos = Todo.includes(:user)
+                 .where(developer_id: current_user.id)
+                 .group_by(&:project_id)
+  end
+
   private
 
   def find_todo
@@ -69,5 +76,9 @@ class TodosController < ApplicationController
 
   def authorize_user
     authorize! :manage, :all
+  end
+
+  def authorize_developer
+    authorize! :change_todo_status, :todos
   end
 end

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
         collection do
           get :status_by_developers
           get :status_by_project
+          get :developer_todo_list
         end
       end
 
