@@ -8,7 +8,7 @@ $(document).ready(function(){
         url: '/fetch_developers'
     }).done(function(results)
       { 
-        setSumoSelectList(results, "project_developer_ids", gon.selected_developers) //Update supervisor select list
+        setSumoSelectList(results, "project_developer_ids", gon.selected_developers)
     });
   }
   if($('#todo_form').length > 0){
@@ -21,7 +21,7 @@ $(document).ready(function(){
         }
     }).done(function(results)
       { 
-        setSumoSelectList(results, "todo_developer_id", gon.selected_developer) //Update supervisor select list
+        setSumoSelectList(results, "todo_developer_id", gon.selected_developer)
     });
   }
 })

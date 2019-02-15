@@ -9,6 +9,14 @@ Rails.application.routes.draw do
         resources :todos
       end
 
+      resources :todos do
+        collection do
+          get :status_by_developers
+          get :status_by_project
+          get :developer_todo_list
+        end
+      end
+
       match '/fetch_developers', to: 'users#fetch_developers', via: [:get]
     end
     unauthenticated do

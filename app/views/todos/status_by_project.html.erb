@@ -1,0 +1,31 @@
+<div class="m-3">
+  <h3>Status By Project</h3>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr role='row'>
+            <th class='md-cell'>Status/Project</th>
+            <th class='md-cell'>New</th>
+            <th class='sm-cell'>In Progress</th>
+            <th class='sm-cell'>Done</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @todos.each do |todo| %>
+            <tr role='row'>
+              <td class='md-cell'><b><%= todo[1].first.project.title %></b></td>
+              <% todos_grouped_by_status = todo[1].group_by(&:status) %>
+              <% ['ready', 'in_progress', 'done'].each do |t| %>
+                <% values = todos_grouped_by_status[t] %>
+                <td class='md-cell'>
+                  <%= values.pluck(:title).join('<br>').html_safe rescue '' %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

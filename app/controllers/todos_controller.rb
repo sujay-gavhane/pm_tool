@@ -1,6 +1,7 @@
 class TodosController < ApplicationController
   before_action :authenticate_user!
-  before_action :authorize_user
+  before_action :authorize_user, except: [:developer_todo_list]
+  before_action :authorize_developer, only: [:developer_todo_list]
   before_action :find_todo, only: [:edit, :update, :destroy]
   before_action :find_project, only: [:new, :index, :edit, :update, :create]
 
@@ -14,11 +15,10 @@ class TodosController < ApplicationController
 
   def create
     @todo = Todo.new(todo_params)
-    debugger
     if @todo.save
       redirect_to project_todos_path, notice: 'Todo created successfully'
     else
-      flash[:alert] =  "#{@todo.errors.full_messages.join('<br>')}"
+      flash[:alert] = @todo.errors.full_messages.join('<br>').to_s
       render action: :new
     end
   end
@@ -31,7 +31,7 @@ class TodosController < ApplicationController
     if @todo.update_attributes(todo_params)
       redirect_to project_todos_path, notice: 'Todo updated successfully'
     else
-      flash[:alert] =  "#{@todo.errors.full_messages.join('<br>')}"
+      flash[:alert] = @todo.errors.full_messages.join('<br>').to_s
       render action: :edit
     end
   end
@@ -40,8 +40,23 @@ class TodosController < ApplicationController
     if @todo.destroy
       redirect_to project_todos_path, notice: 'Todo destroyed successfully'
     else
-      redirect_to project_todos_path, alert: "#{@todo.errors.full_messages.join('<br>')}"
+      redirect_to project_todos_path,
+                  alert: @todo.errors.full_messages.join('<br>').to_s
     end
+  end
+
+  def status_by_developers
+    @todos = Todo.includes(:user).all.group_by(&:developer_id)
+  end
+
+  def status_by_project
+    @todos = Todo.includes(:user).all.group_by(&:project_id)
+  end
+
+  def developer_todo_list
+    @todos = Todo.includes(:user)
+                 .where(developer_id: current_user.id)
+                 .group_by(&:project_id)
   end
 
   private
@@ -55,10 +70,15 @@ class TodosController < ApplicationController
   end
 
   def todo_params
-    params.require(:todo).permit(:title, :description, :project_id, :status, :developer_id)    
+    params.require(:todo).permit(:title, :description, :project_id, :status,
+                                 :developer_id)
   end
 
   def authorize_user
     authorize! :manage, :all
+  end
+
+  def authorize_developer
+    authorize! :change_todo_status, :todos
   end
 end
