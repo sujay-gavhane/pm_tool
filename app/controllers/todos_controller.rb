@@ -1,8 +1,8 @@
 class TodosController < ApplicationController
   before_action :authenticate_user!
-  before_action :authorize_user, except: [:developer_todo_list]
-  before_action :authorize_developer, only: [:developer_todo_list]
-  before_action :find_todo, only: [:edit, :update, :destroy]
+  before_action :authorize_user, except: [:developer_todo_list, :update_status]
+  before_action :authorize_developer, only: [:developer_todo_list, :update_status]
+  before_action :find_todo, only: [:edit, :update, :destroy, :update_status]
   before_action :find_project, only: [:new, :index, :edit, :update, :create]
 
   def index
@@ -54,9 +54,24 @@ class TodosController < ApplicationController
   end
 
   def developer_todo_list
-    @todos = Todo.includes(:user)
-                 .where(developer_id: current_user.id)
-                 .group_by(&:project_id)
+    @projects = current_user.projects
+    @todos =  []
+    @todos = current_user.todos.where(project_id: params[:project_id]).order('created_at desc') if params[:project_id].present?
+  end
+
+  def chart_view
+    @projects = Project.order('created_at desc')
+    @todos =  []
+    @todos = Todo.where(project_id: params[:project_id]).order('created_at desc') if params[:project_id].present?
+  end
+
+  def update_status
+    @todos = current_user.todos.where(project_id: params[:project_id]).order('created_at desc') if params[:project_id].present?
+    if @todo.send("#{params[:status]}!")
+      flash[:notice] = 'Status Updated successfully'
+    else
+      flash[:alert] = @todo.errors.full_messages.join('<br>').to_s
+    end
   end
 
   private

@@ -1,39 +1,4 @@
-<div class="m-3">
-  <h3>Todo List</h3>
-  <div class="row">
-    <div class="col-md-12">
-      <table class="table table-bordered">
-        <thead>
-          <tr role='row'>
-            <th class='md-cell'>Status/Project</th>
-            <th class='md-cell'>New</th>
-            <th class='sm-cell'>In Progress</th>
-            <th class='sm-cell'>Done</th>
-            <th class='sm-cell'>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @todos.each do |todo| %>
-            <tr role='row'>
-              <td class='md-cell'><b><%= todo[1].first.project.title %></b></td>
-              <% todos_grouped_by_status = todo[1].group_by(&:status) %>
-              <% ['ready', 'in_progress', 'done'].each do |t| %>
-                <% values = todos_grouped_by_status[t] %>
-                <td class='md-cell'>
-                  <% todos_list = values.pluck(:title) rescue [] %>
-                    <%= select_tag "status", options_for_select(todos_list), class: "form-control", id: 'todo_status_select_list', prompt: 'Select Todo' %>
-                </td>
-              <% end %>
-              <td class='md-cell'>
-                <div class="row">
-                  <div class="col-md-6"><%= select_tag "status", options_for_select([['New', 0],['In Progress', 1],['Done', 2]]), class: "form-control", id: 'todo_status_select_list' %></div>
-                  <div class="col-md-3"><%= submit_tag 'Update Status', id: 'todo_status_submit_button', class: 'btn btn-primary pull-right' %></div>
-                </div>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
+<%= render 'shared/search_by_project_section', note: "Search by project to see todo's of different projects.", path: developer_todo_list_todos_path %>
+<div class="dev-todo-listing">
+  <%= render 'dev_todo_listing', todos: @todos %>
 </div>

@@ -5,8 +5,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :assigned_projects
   has_many :projects, through: :assigned_projects
-  has_many :todos
+  has_many :todos, foreign_key: 'developer_id'
 
   after_create :assign_default_role
 

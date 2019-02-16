@@ -14,6 +14,8 @@ Rails.application.routes.draw do
           get :status_by_developers
           get :status_by_project
           get :developer_todo_list
+          patch :update_status
+          get :chart_view
         end
       end
 
