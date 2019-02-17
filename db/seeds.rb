@@ -5,5 +5,5 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-user = User.create(first_name: 'Admin', last_name: 'Manager', email: 'admin@pmtool.com', password: 'test@1234', password_confirmation: 'test@1234')
+user = User.create(first_name: 'Admin', last_name: 'Manager', email: ENV['ADMIN_EMAIL'], password: ENV['ADMIN_PASSWORD'], password_confirmation: ENV['ADMIN_PASSWORD'])
 user.add_role(:manager)
