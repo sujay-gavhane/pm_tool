@@ -14,6 +14,7 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     if @project.save
+      AssignedProject.create_assigned_projects(@project.id, params[:project][:developer_ids])
       redirect_to projects_path, notice: 'Project created successfully'
     else
       flash[:alert] =  "#{@project.errors.full_messages.join('<br>')}"
