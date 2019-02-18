@@ -1,0 +1,10 @@
+<%= render 'shared/search_by_project_section', note: "Search by project to see todo's chart of different projects.", path: chart_view_todos_path %>
+<%= render 'google_chart_script', todos: @todos %>
+<div class="m-3">
+  <div class="margin-auto">
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-4"><div id="chart_div"></div></div>
+    </div>
+  </div>  
+</div>

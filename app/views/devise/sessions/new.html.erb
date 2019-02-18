@@ -1,0 +1,32 @@
+<div class="margin-auto">
+  <div class="row">
+    <div class="col-md-3 margin-auto">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "login-form" }) do |f| %>
+        <h3 class="form-title">Login to your account</h3>
+        <div class="form-group">
+          <div class="input-icon">
+            <i class="fa fa-envelope"></i>
+            <%= f.email_field :email, :autocomplete => "off", :class=>"form-control placeholder-no-fix", :autofocus => true, :placeholder => "Email"  %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-icon">
+            <i class="fa fa-lock"></i>
+            <%= f.password_field :password, :autocomplete => "off", :class=>"form-control placeholder-no-fix", :placeholder => "Password"  %>
+          </div>
+        </div>
+        <% if devise_mapping.rememberable? %>
+        <div class="form-group">
+          <label class="checkbox">
+            <%= f.check_box :remember_me, :value=>"1" %> Remember me
+          </label>
+        </div>
+        <%end%>
+        <div class="form-actions">
+          <%= f.submit 'Login', class: "btn blue pull-right" %>
+        </div>
+      <%end%>
+      <%= render "devise/shared/links" %>
+    </div>
+  </div>
+</div>

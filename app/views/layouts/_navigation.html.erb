@@ -1,0 +1,24 @@
+<div class="row p-2 nav-bg-color">
+  <% if can?(:change_todo_status, :todos) %>
+    <div class="col-md-2">
+      <%= link_to 'Todo List', developer_todo_list_todos_path %>
+    </div>
+  <% end %>
+  <% if can?(:manage, :all) %>
+    <div class="col-md-2">
+      <%= link_to 'List Projects', projects_path %>
+    </div>
+    <div class="col-md-2">
+      <%= link_to 'Add Projects', new_project_path %>
+    </div>
+    <div class="col-md-2">
+      <%= link_to 'Status by Developers', status_by_developers_todos_path %>
+    </div>
+    <div class="col-md-2">
+      <%= link_to 'Status by Projects', status_by_project_todos_path %>
+    </div>
+    <div class="col-md-2">
+      <%= link_to 'Chart View', chart_view_todos_path %>
+    </div>
+  <% end %>
+</div>

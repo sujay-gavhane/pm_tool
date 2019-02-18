@@ -1,0 +1,47 @@
+<div class="row m-3">
+  <div class="pull-right">
+    <%= link_to 'Todo List', project_todos_path(project_id: @project), class: 'btn btn-primary mr-3' %>
+  </div>
+  <% unless params[:action] == 'edit' %>
+    <div class="pull-right">
+      <%= link_to 'Add new Todo', new_project_todo_path(project_id: @project), class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>
+<div class="m-3">
+  <h3>Todo Listing</h3>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr role='row'>
+            <th class='md-cell'>Title</th>
+            <th class='md-cell'>Description</th>
+            <th class='md-cell'>Developer</th>
+            <th class='md-cell'>Status</th>
+            <th class='md-cell'>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @todos.present? %>
+            <% @todos.each do |todo| %>
+              <tr role='row'>
+                <td class='md-cell'><%= todo.title %></td>
+                <td class='md-cell'><%= todo.description %></td>
+                <td class='md-cell'><%= todo.user.try(:full_name).humanize %></td>
+                <td class='md-cell'><%= todo.status.humanize %></td>
+                <td class='md-cell'><%= link_to 'Destroy', project_todo_path(id: todo, project_id: todo.project_id), method: 'delete' %> | <%= link_to 'Edit', edit_project_todo_path(id: todo, project_id: todo.project_id) %></td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan='5' class="text-center">
+                No Results Found
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

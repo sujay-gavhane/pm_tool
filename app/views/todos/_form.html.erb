@@ -1,0 +1,47 @@
+<div class="form-body" id='todo_form'>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="control-label col-md-3">Title
+          <span class="required" aria-required="true">* </span>
+        </label>
+        <div class="col-md-9">
+          <%= f.text_field :title, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="control-label col-md-3">Description
+        </label>
+        <div class="col-md-9">
+          <%= f.text_area :description, class: "form-control", rows: 4 %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="control-label col-md-9">Select Developer
+          <span class="required" aria-required="true">* </span>
+        </label>
+        <div class="col-md-9">
+          <%= select_tag "todo[developer_id]", options_from_collection_for_select([], 'id', 'first_name'), class: "form-control developer_id" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%= f.hidden_field :project_id, value: @todo.project_id %>
+<div class="form-actions">
+  <div class="row">
+    <div class="col-md-6"></div>
+    <div class="col-md-4">
+      <% if @todo.new_record? %>
+        <%= f.submit 'Create', class: "btn blue primary pull-right" %>
+      <% else %>
+        <%= f.submit 'Update', class: "btn blue primary pull-right" %>
+      <% end %>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>

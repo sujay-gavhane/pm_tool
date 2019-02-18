@@ -1,0 +1,54 @@
+<div class="m-3">
+  <h3>Todo List</h3>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr role='row'>
+            <th class='md-cell'>New</th>
+            <th class='sm-cell'>In Progress</th>
+            <th class='sm-cell'>Done</th>
+            <th class='sm-cell'>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if todos.present? %>
+            <% todos.each do |todo| %>
+              <tr role='row'>
+                <td class="md-cell">
+                  <%= todo.title if todo.status == 'ready' %>
+                </td>
+                <td class="md-cell">
+                  <%= todo.title if todo.status == 'in_progress' %>
+                </td>
+                <td class="md-cell">
+                  <%= todo.title if todo.status == 'done' %>
+                </td>
+                <td class='md-cell'>
+                  <div class="row">
+                    <div class="col-md-10">
+                      <%= form_tag(update_status_todos_path, method: :patch, remote: true) do %>
+                        <div class="row">
+                          <div class="col-md-6"><%= select_tag "status", options_for_select([['New', 'ready'],['In Progress', 'in_progress'],['Done', 'done']]), class: "form-control", id: 'todo_status_select_list' %></div>
+                          <div class="col-md-3"><%= submit_tag 'Update Status', id: 'todo_status_submit_button', class: 'btn btn-primary pull-right' %></div>
+                          <%= hidden_field_tag :id, todo.id %>
+                          <%= hidden_field_tag :project_id, params[:project_id] %>
+                        </div>
+                      <% end %>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan='4' class="text-center">
+                No Results Found
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

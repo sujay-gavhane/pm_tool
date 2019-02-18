@@ -1,0 +1,24 @@
+<div class="m-3 note-section">
+  <div>
+    <span><b>Note:</b> <%= note %></span>
+  </div>
+</div>
+<div class="m-3">
+  <div class="row">
+    <div class="col-md-10">
+      <form action="<%= path %>" method="get">
+        <div class="row">
+          <div class="col-md-3">
+            <span><h4>Search by Project: </h4></span>
+          </div>
+          <div class="col-md-8">
+            <%= select_tag "project_id", options_from_collection_for_select(@projects, 'id', 'title', params[:project_id]), class: "form-control", prompt: 'Select Project' %>
+          </div>
+          <div class="col-md-1">
+            <%= submit_tag "Search", class: "btn blue primary" %>
+          </div>
+        </div>  
+      </form>
+    </div>
+  </div>
+</div>
