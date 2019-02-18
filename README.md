@@ -1,6 +1,11 @@
 # pm_tool
 ## Project Management Tool
 
+### Prerequisites
+1. ruby-2.5.1
+2. rails 5.2.1
+3. postgres database
+
 ### Steps to Setup
 1. run `git clone git@github.com:sujay-gavhane/pm_tool.git` command.
 2. run `bundle install` command in root of the project directory.
