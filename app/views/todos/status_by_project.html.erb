@@ -12,16 +12,24 @@
           </tr>
         </thead>
         <tbody>
-          <% @todos.each do |todo| %>
-            <tr role='row'>
-              <td class='md-cell'><b><%= todo[1].first.project.title %></b></td>
-              <% todos_grouped_by_status = todo[1].group_by(&:status) %>
-              <% ['ready', 'in_progress', 'done'].each do |t| %>
-                <% values = todos_grouped_by_status[t] %>
-                <td class='md-cell'>
-                  <%= values.pluck(:title).join('<br>').html_safe rescue '' %>
-                </td>
-              <% end %>
+          <% if @todos.present? %>
+            <% @todos.each do |todo| %>
+              <tr role='row'>
+                <td class='md-cell'><b><%= todo[1].first.project.title %></b></td>
+                <% todos_grouped_by_status = todo[1].group_by(&:status) %>
+                <% ['ready', 'in_progress', 'done'].each do |t| %>
+                  <% values = todos_grouped_by_status[t] %>
+                  <td class='md-cell'>
+                    <%= values.pluck(:title).join('<br>').html_safe rescue '' %>
+                  </td>
+                <% end %>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan='4' class="text-center">
+                No Results Found
+              </td>
             </tr>
           <% end %>
         </tbody>
