@@ -28,3 +28,7 @@
 7. run `rake db:seed` command
 8. Start the rails server by `rails server` command
 9. In browser open `http://localhost:3000` and your app is running and ready to use.
+
+### Steps to run test cases
+1. make sure you have added test db configuration options in your database.yml file
+2. run command `rake test`
